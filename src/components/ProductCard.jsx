@@ -11,7 +11,6 @@ const ProductCard = ( {productId} ) => {
   const product = useSelector((state) =>
     state.product.products.find((item) => item.id === productId)
   );
-  console.log(product)
    const { title, price, category, thumbnail, rating, id, stock } = product;
 
   const navigate = useNavigate();
