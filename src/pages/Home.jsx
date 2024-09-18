@@ -95,7 +95,7 @@ const Home = () => {
         </div>
       </section>
       <section className="px-2 py-2 md:px-4">
-        <h2>Products</h2>
+       
         <div className="grid justify-center w-full gap-3 md:grid-cols-4">
           {AllProducts ? (
             AllProducts.map((product) => (
