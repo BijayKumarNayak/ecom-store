@@ -6,7 +6,6 @@ import StarRating from "./StarRatrig";
 
 import { addToCart } from "../redux/slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { motion } from "framer-motion";
 const ProductCard = ( {productId} ) => {
   const product = useSelector((state) =>
     state.product.products.find((item) => item.id === productId)
@@ -36,7 +35,7 @@ const ProductCard = ( {productId} ) => {
         />
       </div>
       <div className="p-2">
-        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 truncate ">
+        <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-900 truncate ">
           {truncatedTitle}
         </h5>
 
@@ -45,15 +44,12 @@ const ProductCard = ( {productId} ) => {
 
         <h4 className="my-2 font-bold">₹{price}</h4>
 
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        <button
+          className="text-black  hover:bg-black hover:text-white   font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 border-2 border-black "
           onClick={() => dispatch(addToCart({ ...product, quantity }))}
         >
           Add To Cart
-        </motion.button>
+        </button>
       </div>
     </div>
    
