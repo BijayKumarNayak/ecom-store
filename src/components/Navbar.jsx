@@ -3,17 +3,29 @@ import React, { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMenu } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import logo from "../images/logo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterProducts } from "../redux/slice/productSlice";
 import { motion } from "framer-motion";
-
+import { FaOpencart } from "react-icons/fa";
 import { logout } from "../redux/slice/authSlice";
+import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
+import { IoMdSearch } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const numberOfCartProduct = useSelector(
     (state) => state.cartProducts.cart.length
   );
+  const placeholders = [
+    "Search For Beauty Products",
+    "Search For Electronics",
+    "Search For Fashion",
+    "Search For Home Appliances",
+    "Search For Fragrances",
+  ];
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
   const [searchedTerm, setSearchedTerm] = useState("");
@@ -25,35 +37,39 @@ const Navbar = () => {
   useEffect(() => {
     handleSearch();
   }, [searchedTerm]);
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [show]);
   return (
-    <nav className="z-50 w-full bg-gray-800 position-fixed ">
-      <div className="relative px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <nav className="z-50 w-full px-3 bg-slate-100 position-fixed md:px-8 lg:px-12 ">
+      <div className="relative mx-auto max-w-7xl ">
         <div className="flex items-center justify-between h-16">
           <div className="flex-shrink-0">
-            <Link to="/" className="text-lg font-bold text-white ">
-              <span className="text-red-400">E</span>com{" "}
-              <span className="text-red-400">S</span>tore
+            <Link to="/">
+              <img src={logo} alt="" className="w-20 h-20" />
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="flex items-center px-3 py-2 bg-white rounded-md ">
-              <input
-                type="text"
-                placeholder="Search products"
-                className="focus:outline-none"
-                onChange={(e) => setSearchedTerm(e.target.value)}
-                value={searchedTerm}
-              />
-              <FaSearch />
-            </div>
+            <PlaceholdersAndVanishInput
+              placeholders={placeholders}
+              onChange={(e) => setSearchedTerm(e.target.value)}
+              value={searchedTerm}
+            />
           </div>
 
-          <div className="flex items-center gap-1 md:gap-2">
+          <div className="flex items-center md:gap-5">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `hidden md:block lg:block px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                  isActive ? "text-orange-600" : "text-white"
+                `hidden md:block  text-base font-medium hover:text-gray-600  ${
+                  isActive ? "text-orange-600" : "text-gray-700"
                 }`
               }
             >
@@ -62,8 +78,8 @@ const Navbar = () => {
             <NavLink
               to="/products"
               className={({ isActive }) =>
-                `hidden md:block lg:block px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                  isActive ? "text-orange-600" : "text-white"
+                `hidden md:block lg:block   text-base font-medium hover:text-gray-600  ${
+                  isActive ? "text-orange-600" : "text-gray-700"
                 }`
               }
             >
@@ -72,8 +88,8 @@ const Navbar = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `hidden md:block lg:block px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                  isActive ? "text-orange-600" : "text-white"
+                `hidden md:block lg:block  text-base font-medium hover:text-gray-600  ${
+                  isActive ? "text-orange-600" : "text-gray-700"
                 }`
               }
             >
@@ -90,85 +106,78 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="hidden px-3 py-2 text-sm font-medium text-gray-300 rounded-md md:block lg:block hover:bg-gray-700 hover:text-white"
+                className="hidden text-base font-medium text-gray-700 md:block lg:block hover:text-gray-600 "
               >
-                <button>Sign In</button>
+                Sign In
               </Link>
             )}
 
             <FaSearch
-              className="mr-4 text-lg text-white md:hidden"
+              className="mr-4 text-lg text-gray-700 md:hidden"
               onClick={() => setShowSearchBox(!showSearchBox)}
             />
+            <div className="mr-4">
+              <FaUser className="text-lg text-gray-700 " />
+            </div>
             <div className="relative ">
               <NavLink to="/cart" className="px-3 font-medium text-gray-300 ">
-                <FaCartShopping className="text-2xl" />
+                <FaCartShopping className="text-2xl text-gray-700" />
               </NavLink>
-              <div className="absolute w-6 h-6 text-center text-white bg-red-500 rounded-full top-2 left-4 ">
-                {numberOfCartProduct}
+              <div></div>
+              <div className="absolute w-4 h-4 text-center text-white bg-red-500 rounded-full top-3 left-4 ">
+                <p className="text-xs"> {numberOfCartProduct}</p>
               </div>
             </div>
 
             <IoMenu
-              className="ml-5 text-2xl text-white md:hidden lg:hidden"
+              className="ml-5 text-2xl text-gray-700 md:hidden lg:hidden"
               onClick={() => setShow(!show)}
             />
           </div>
         </div>
       </div>
+      {/* ======== Mobile Menu ============== */}
       {show && (
-        <motion.div
-          initial={{ x: 150 }}
-          animate={{ x: 0 }}
-          transition={{ delay: 0.3, type: "spring" }}
-          className="absolute right-0 flex flex-col items-center py-2 bg-gray-800 "
-        >
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                isActive ? "text-orange-600" : "text-white"
-              }`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/products"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                isActive ? "text-orange-600" : "text-white"
-              }`
-            }
-          >
-            Products
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700 hover:scale-125 duration-150 ${
-                isActive ? "text-orange-600" : "text-white"
-              }`
-            }
-          >
-            Contact Us
-          </NavLink>
-
-          <Link
-            to="/login"
-            className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
-          >
-            <button>Sign In</button>
-          </Link>
-        </motion.div>
+        <div className="fixed top-0 bottom-0 right-0 w-full overflow-hidden transition-all bg-white md:hidden">
+          <MdCancel
+            className="fixed text-2xl top-5 right-5 "
+            onClick={() => setShow(false)}
+          />
+          <ul className="flex flex-col items-center gap-2 px-5 mt-20 text-lg font-medium">
+            <li>
+              <NavLink
+                to="/"
+                onClick={() => setShow(false)}
+                className="inline-block px-4 py-2 rounded-full"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/products"
+                onClick={() => setShow(false)}
+                className="inline-block px-4 py-2 rounded-full"
+              >
+                Products
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/contact"
+                onClick={() => setShow(false)}
+                className="inline-block px-4 py-2 rounded-full"
+              >
+                Contact Us
+              </NavLink>
+            </li>
+          </ul>
+        </div>
       )}
-
       {showSearchBox && (
-        <div className="flex items-center px-3 py-2 bg-white rounded-md md:block">
-          <input
-            type="text"
-            placeholder="Search products"
-            className="focus:outline-none"
+        <div>
+          <PlaceholdersAndVanishInput
+            placeholders={placeholders}
             onChange={(e) => setSearchedTerm(e.target.value)}
             value={searchedTerm}
           />
