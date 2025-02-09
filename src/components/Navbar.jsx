@@ -116,9 +116,9 @@ const Navbar = () => {
               className="mr-4 text-lg text-gray-700 md:hidden"
               onClick={() => setShowSearchBox(!showSearchBox)}
             />
-            <div className="mr-4">
+            <Link to="/login" className="mr-4 md:hidden lg:hidden">
               <FaUser className="text-lg text-gray-700 " />
-            </div>
+            </Link>
             <div className="relative ">
               <NavLink to="/cart" className="px-3 font-medium text-gray-300 ">
                 <FaCartShopping className="text-2xl text-gray-700" />

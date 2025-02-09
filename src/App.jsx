@@ -17,24 +17,26 @@ import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const location = useLocation();
   return (
     <Layout>
-    
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} exact />
-            <Route path="/products" element={<Products />} />
-            <Route path="/product-detail/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
+      <ToastContainer />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} exact />
+          <Route path="/products" element={<Products />} />
+          <Route path="/product-detail/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
 
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </AnimatePresence>
-    
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </AnimatePresence>
     </Layout>
   );
 }

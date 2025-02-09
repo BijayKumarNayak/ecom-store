@@ -7,7 +7,7 @@ import {
   removeFromCart,
   selectTotalPrice,
 } from "../redux/slice/cartSlice";
-import emptyCartImg from "../images/shopping.png"
+import emptyCartImg from "../images/shopping.png";
 import Container from "../components/Container";
 import { reduceStock } from "../redux/slice/productSlice";
 import { motion } from "framer-motion";
@@ -49,8 +49,13 @@ const Cart = () => {
                 </p>
                 <div className="flex items-center justify-center w-32 gap-2 m-auto border rounded-md">
                   <button
-                    className="w-10 h-10 text-2xl font-bold border rounded-md"
+                    className={`w-10 h-10 text-2xl font-bold border rounded-md ${
+                      product.quantity === 0
+                        ? "bg-gray-300 cursor-not-allowed"
+                        : ""
+                    }`}
                     onClick={() => handleDecrement(product)}
+                    disabled={product.quantity === 0}
                   >
                     -
                   </button>
@@ -75,11 +80,7 @@ const Cart = () => {
           </ul>
         ) : (
           <div className="flex flex-col items-center justify-center h-screen">
-            <img
-              src={emptyCartImg}
-              alt=""
-              className="h-80 w-80"
-            />
+            <img src={emptyCartImg} alt="" className="h-80 w-80" />
             <Link to="/products">
               <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
                 Shop Now

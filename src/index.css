@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Aguafina+Script&family=Carter+One&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Edu+QLD+Beginner:wght@400..700&family=Outfit:wght@100..900&family=Tangerine:wght@400;700&family=Varela+Round&display=swap");
+
+* {
+  font-family: Outfit;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

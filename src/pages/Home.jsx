@@ -1,16 +1,19 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import { Link } from "react-router-dom";
 import { fetchData } from "../redux/slice/productSlice";
 import Container from "../components/Container";
-import avatar from "../images/avatar.png"
-import cod from "../images/cash-on-delivery.png"
-import fd from "../images/fast-delivery.png"
-import cs from "../images/customer-service.png"
+import home from "../images/home.jpg";
+import cod from "../images/cash-on-delivery.png";
+import fd from "../images/fast-delivery.png";
+import cs from "../images/customer-service.png";
+import { FlipWords } from "../components/ui/flip-words";
+import { Button } from "../components/ui/moving-border";
 
 import { motion } from "framer-motion";
 const Home = () => {
+  const words = ["Easy", "Sucure", "Pleasure", "Comfortable"];
   const AllProducts = useSelector((state) => state.product.filterProducts);
 
   // console.log(AllProducts);
@@ -21,45 +24,48 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <Container 
-     
-      
-    >
-      <section id="home " className="w-full ">
-        <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:0.5}} className="flex flex-col items-center min-h-screen px-3 md:px-5 md:flex-row lg:flex-row bg-gradient-to-r from-red-400 via-pink-500 to-pink-400">
-          <div className="w-full md:1/2 ">
-            <div className="flex flex-col items-start gap-2 text-white ">
+    <Container>
+      <section id="home " className="relative w-full lg:px-16 md:px-10 ">
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative grid items-center min-h-screen grid-cols-1 mx-auto bg-white md:grid-cols-2 "
+        >
+          <div className="block w-full ">
+            <div className="flex flex-col items-start gap-2 ">
               <p>EXPLORE THE LATEST IN INDUSTRIES</p>
-              <h2 className="text-4xl font-bold ">
-                Each purchase will <br /> be made with pleasure.
+              <h2 className="text-6xl font-bold ">
+                Each purchase will  <br />be made with{" "} <br /> 
+                <FlipWords words={words} />
               </h2>
-              <p>
+              <p className="text-gray-500">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe,
                 reprehenderit?
               </p>
               <Link to="/products" className="hover:text-gray-700">
-              <motion.button
-              initial={{ x: -250 }}
-              animate={{ x: 0 }}
-              transition={{ delay: 0.3, type: "spring" }}
-              className="px-3 py-1 border-2 rounded-full"
-            >
-              Explore Our Products
-            </motion.button>
+                <Button
+                  borderRadius="1.75rem"
+                   className="text-black bg-white border-neutral-200 "
+                >
+                  Explore Our Products
+                </Button>
               </Link>
-             
             </div>
           </div>
           <motion.div
             initial={{ x: 350 }}
             animate={{ x: 0 }}
             transition={{ delay: 0.3, type: "spring" }}
-            className="relative w-full p-2 md:w-1/2 "
+            className="relative w-full h-full p-2 "
           >
-            <img src={avatar} alt=""  />
+            <img src={home} alt="" className="object-contain w-full h-full" />
           </motion.div>
         </motion.div>
       </section>
+
       <section>
         <div className="flex items-center justify-center gap-2 md:gap-4">
           <div className="flex items-center gap-2 md:gap-3 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] md:p-3 p-2">
@@ -95,11 +101,9 @@ const Home = () => {
         </div>
       </section>
       <section className="px-2 py-2 md:px-4">
-       
         <div className="grid justify-center w-full gap-3 md:grid-cols-4">
           {AllProducts ? (
             AllProducts.map((product) => (
-              
               <ProductCard key={product.id} productId={product.id} />
             ))
           ) : (
